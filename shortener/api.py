@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from ninja import Router
@@ -10,10 +11,20 @@ router = Router()
 
 @router.post("/create", response=URLSchema)
 def create_url(request, payload: URLCreateSchema):
-    short_code = generate_short_code()
-    created = URL.objects.create(original_url=payload.original_url, expires_at=payload.expires_at, short_code=short_code)
-    url = get_object_or_404(URL, pk=created.pk)
-    return url
+    """Continuously generate a shortened url until it is unique."""
+    while True:
+        short_code = generate_short_code()
+        try:
+            created = URL.objects.create(
+                original_url=payload.original_url,
+                expires_at=payload.expires_at,
+                short_code=short_code,
+            )
+            # Retrieve the created object because the expiration date might be in the past.
+            url = get_object_or_404(URL, pk=created.pk)
+            return url  # Exit the loop if creation is successful
+        except IntegrityError:
+            continue  # Retry if there is an IntegrityError due to the unique constraint
 
 
 @router.get("/{short_code}")
