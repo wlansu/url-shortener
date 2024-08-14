@@ -1,6 +1,6 @@
 # URL Shortener
 
-A URL shortener service built with Django and Django Ninja.
+A URL shortener service built with Django, Django Ninja and React. The URL is stored in a PostgreSQL database and the short code is generated using a base62 encoding.
 
 ## Description
 
