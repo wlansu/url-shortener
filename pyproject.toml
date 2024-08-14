@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "circularise"
+version = "0.1.0"
+description = ""
+authors = ["Wouter Lansu <wouter.lansu@kpn.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.1"
+django-ninja = "^1.2.2"
+django-cors-headers = "^4.4.0"
+dj-database-url = "^2.2.0"
+dj-config-url = "^0.1.1"
+psycopg2 = "^2.9.9"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.2"
+ruff = "^0.5.7"
+mypy = "^1.11.1"
+pytest-django = "^4.8.0"
+django-stubs = { version = "^5.0.4", extras = [ "compatible-mypy" ] }
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "circularise.settings"
