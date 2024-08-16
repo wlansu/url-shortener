@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('shortener', '0001_initial'),
+        ("shortener", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='url',
-            name='expires_at',
+            model_name="url",
+            name="expires_at",
             field=models.DateTimeField(blank=True, null=True),
         ),
     ]
